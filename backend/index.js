@@ -24,6 +24,10 @@ app.post("/api/todos", (request, response) => {
   }
 });
 
+app.use((request, response) => {
+  response.status(404).send({ error: "unknown endpoint" });
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running in port ${PORT}`);
