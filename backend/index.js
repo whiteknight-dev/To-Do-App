@@ -29,8 +29,18 @@ app.put("/api/todos/:id", (request, response) => {
   const { id } = request.params;
   const body = request.body;
   if (!body) response.status(400).send("Invalid Request");
-  const note = notes.find((note) => note.id == id);
+  const note = notes.find((note) => note.id === id);
   note = { ...note, title: body.title, completed: body.completed };
+});
+
+app.delete("/api/todos/:id", (request, response) => {
+  const notes = require("./notes");
+  const { id } = request.params;
+
+  if (!id) response.status(400).send("Invalid ID");
+
+  notes = notes.filter((note) => note.id !== id);
+  response.status(202).send("Note deleted");
 });
 
 app.use((request, response) => {
