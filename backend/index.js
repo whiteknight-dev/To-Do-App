@@ -13,6 +13,17 @@ app.get("/api/todos", (request, response) => {
   response.status(404);
 });
 
+app.post("/api/todos", (request, response) => {
+  const notes = require("./notes");
+  const body = request.body;
+
+  if (body) {
+    const note = { id: body.id, title: body.title, completed: body.completed };
+    notes.push(note);
+    response.status(201).send("New note created");
+  }
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running in port ${PORT}`);
