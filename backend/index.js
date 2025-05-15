@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/todos", (request, response) => {
-  const notes = require("./mock.json");
+  const notes = require("./notes");
 
   if (notes) response.status(200).send(notes);
   response.status(404);
