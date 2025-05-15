@@ -24,6 +24,15 @@ app.post("/api/todos", (request, response) => {
   }
 });
 
+app.put("/api/todos/:id", (request, response) => {
+  const notes = require("./notes");
+  const { id } = request.params;
+  const body = request.body;
+  if (!body) response.status(400).send("Invalid Request");
+  const note = notes.find((note) => note.id == id);
+  note = { ...note, title: body.title, completed: body.completed };
+});
+
 app.use((request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
 });
