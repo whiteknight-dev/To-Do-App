@@ -23,16 +23,32 @@ app.get("/tasks", (request, response) => {
 
 app.post("/tasks", (request, response) => {
   const { title } = request.body;
-  const id = crypto.randomUUID();
+
+  if (!title) return response.status(400).json({ error: "Title is required" });
 
   const newTask = {
-    id: id,
+    id: crypto.randomUUID(),
     title: title,
     completed: false,
   };
 
   tasks.push(newTask);
   response.status(201).json(newTask);
+});
+
+app.put("/tasks/:id", (request, response) => {
+  const { id } = request.params;
+  const { title, completed } = request.body;
+
+  const task = tasks.find((t) => t.id === Number(id));
+  if (!task) {
+    return response.status(404).json({ error: "Task not found" });
+  }
+
+  if (title !== undefined) task.title = title;
+  if (completed !== undefined) task.completed = completed;
+
+  response.json(task);
 });
 
 // Default Route
