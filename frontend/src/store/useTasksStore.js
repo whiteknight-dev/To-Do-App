@@ -15,7 +15,7 @@ export const useTasksStore = create((set) => ({
 
       set({ tasks: data, isLoading: false });
     } catch (e) {
-      set({ error: "Failed to fetch tasks", isLoading: false });
+      set({ error: `Failed to fetch tasks: ${e}`, isLoading: false });
     }
   },
   addTask: async ({ title }) => {
@@ -36,7 +36,7 @@ export const useTasksStore = create((set) => ({
         isLoading: false,
       }));
     } catch (e) {
-      set({ error: "Failed to add the task", isLoading: false });
+      set({ error: `Failed to add the task: ${e}`, isLoading: false });
     }
   },
   updateTask: async ({ id, title, completed }) => {
@@ -57,7 +57,7 @@ export const useTasksStore = create((set) => ({
         isLoading: false,
       }));
     } catch (e) {
-      set({ error: "Failed to update the task", isLoading: false });
+      set({ error: `Failed to update the task: ${e}`, isLoading: false });
     }
   },
   deleteTask: async ({ id }) => {
@@ -78,7 +78,7 @@ export const useTasksStore = create((set) => ({
         }));
       }
     } catch (e) {
-      set({ error: "Failed to delete the task", isLoading: false });
+      set({ error: `Failed to delete the task: ${e}`, isLoading: false });
     }
   },
 }));
